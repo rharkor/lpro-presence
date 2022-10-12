@@ -26,7 +26,7 @@ const checkTimeLoop = (channel) => {
       !sended.includes(dateCutHours.toString())
     ) {
       try {
-        channel.send("N'oubliez pas de signer votre fiche de présence! 😃");
+        channel.send("N'oubliez pas de signer votre fiche de présence! 😃\nhttps://moodle.univ-lr.fr/2022/mod/attendance/view.php?id=24050");
         console.log("message sended");
 	sended.push(dateCutHours.toString());
       } catch (e) {
