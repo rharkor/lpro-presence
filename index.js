@@ -28,10 +28,10 @@ const checkTimeLoop = (channel) => {
       try {
         channel.send("N'oubliez pas de signer votre fiche de présence! 😃");
         console.log("message sended");
+	sended.push(dateCutHours.toString());
       } catch (e) {
         console.error(e);
       }
-      sended.push(dateCutHours.toString());
     }
   }, 1000 * 10); // 10 sec
 };
