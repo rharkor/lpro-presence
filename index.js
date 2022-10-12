@@ -1,9 +1,15 @@
 require("dotenv").config();
+const emojis = require("./emojis")
+const messages = require("./messages")
 const { Client, GatewayIntentBits } = require("discord.js");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const hours = process.env.HOURS.split(",");
 
 const sended = [];
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -26,9 +32,9 @@ const checkTimeLoop = (channel) => {
       !sended.includes(dateCutHours.toString())
     ) {
       try {
-        channel.send("N'oubliez pas de signer votre fiche de présence! 😃\nhttps://moodle.univ-lr.fr/2022/mod/attendance/view.php?id=24050");
-        console.log("message sended");
-	sended.push(dateCutHours.toString());
+          channel.send(messages[getRandomInt(messages.length)] + emojis[getRandomInt(emojis.length)] + "\n" + process.env.MOODLE_URL);
+          console.log("message sended");
+          sended.push(dateCutHours.toString());
       } catch (e) {
         console.error(e);
       }
