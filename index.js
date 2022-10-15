@@ -29,7 +29,8 @@ const checkTimeLoop = (channel) => {
     );
     if (
       hours.includes(d.getHours().toString()) &&
-      !sended.includes(dateCutHours.toString())
+      !sended.includes(dateCutHours.toString()) &&
+      d.getDay() != 0 && d.getDay() != 6 // Not sunday and saturday
     ) {
       try {
           channel.send(messages[getRandomInt(messages.length)] + emojis[getRandomInt(emojis.length)] + "\n" + process.env.MOODLE_URL);
