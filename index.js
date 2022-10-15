@@ -39,18 +39,26 @@ const checkTimeLoop = (channel) => {
     if (
       hours.includes(d.getHours().toString()) && // Valid hour
       weeks.indexOf(d.getWeek().toString()) !== -1 && // Valid week
-      !d.isWeekend() && // Not a weekend
+      // !d.isWeekend() && // Not a weekend
       !sended.includes(dateCutHours.toString()) // Not already sended
     ) {
+      const message =
+        messages[getRandomInt(messages.length)] +
+        emojis[getRandomInt(emojis.length)] +
+        "\n" +
+        process.env.MOODLE_URL;
+
       try {
-        const message =
-          messages[getRandomInt(messages.length)] +
-          emojis[getRandomInt(emojis.length)] +
-          "\n" +
-          process.env.MOODLE_URL;
         // Send to the channel
         channel.send(message);
         console.log("message sended");
+
+        sended.push(dateCutHours.toString());
+      } catch (e) {
+        console.error(e);
+      }
+
+      try {
         // Send to all subscribed users
         const subscribed = await getSubscribed();
         subscribed.forEach((userId) => {
@@ -59,13 +67,11 @@ const checkTimeLoop = (channel) => {
             console.log(`message sended to ${userId}`);
           });
         });
-
-        sended.push(dateCutHours.toString());
       } catch (e) {
         console.error(e);
       }
     }
-  }, 1000 * 60 * 30); // 10 sec
+  }, 1000 * 4); //60 * 30);
 };
 
 client.login(process.env.BOT_TOKEN);

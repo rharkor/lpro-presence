@@ -41,7 +41,7 @@ const subscribe = async (user) => {
 };
 
 const unsubscribe = async (user) => {
-  return dbClient.query(`DELETE FROM subscribe_list WHERE discord=${user}`);
+  return dbClient.query(`DELETE FROM subscribe_list WHERE discord = '${user}'`);
 };
 
-module.exports = { init, getSubscribed, subscribe };
+module.exports = { init, getSubscribed, subscribe, unsubscribe };

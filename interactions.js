@@ -1,4 +1,4 @@
-const { subscribe } = require("./database");
+const { subscribe, unsubscribe } = require("./database");
 
 const handleInteractions = (client) => {
   client.on("interactionCreate", async (interaction) => {
@@ -9,15 +9,23 @@ const handleInteractions = (client) => {
     }
 
     if (interaction.commandName === "subscribe") {
-      await subscribe(interaction.user.id);
-      await interaction.reply("Vous avez correctement ajouté à la liste ✅");
+      try {
+        await subscribe(interaction.user.id);
+        await interaction.reply("Vous avez correctement ajouté à la liste ✅");
+      } catch (e) {
+        await interaction.reply("Une erreure s'est produite...");
+      }
     }
 
     if (interaction.commandName === "unsubscribe") {
-      await subscribe(interaction.user.id);
-      await interaction.reply(
-        "Vous avez été retiré de la liste des messages privé"
-      );
+      try {
+        await unsubscribe(interaction.user.id);
+        await interaction.reply(
+          "Vous avez été retiré de la liste des messages privé"
+        );
+      } catch (e) {
+        await interaction.reply("Une erreure s'est produite...");
+      }
     }
   });
 };
