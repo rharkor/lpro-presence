@@ -36,3 +36,11 @@ Date.prototype.getWeek = function (dowOffset) {
   }
   return weeknum;
 };
+
+/**
+ * Return if the date is a weekend or not
+ * @return bool
+ */
+Date.prototype.isWeekend = function () {
+  return this.getDay() === 6 || this.getDay() === 0;
+};

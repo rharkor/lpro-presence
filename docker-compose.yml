@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - default
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - default
+    ports:
+      - 5432:5432
+
+networks:
+  default:
+    external: false
+
+volumes:
+  db:
+    driver: local

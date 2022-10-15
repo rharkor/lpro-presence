@@ -1,5 +1,8 @@
+require("dotenv").config();
 require("./utils/date");
 
-const date = new Date("2022-10-17");
+const date = new Date();
 
-console.log(date.getWeek());
+const weeks = process.env.PRESENCE_WEEKS.split(",");
+
+console.log(weeks.indexOf(date.getWeek().toString()) !== -1);
